@@ -384,6 +384,8 @@ EXTERN_MSC int GMT_grdsample (void *V_API, int mode, void *args) {
 		else if (lat < Gin->header->wesn[YLO])
 			lat += Gin->header->inc[GMT_Y] * HH->nyp;
 		for (col = 0; col < (openmp_int)Gout->header->n_columns; col++) {
+			if (col == 0 && row == (Gout->header->n_rows-1))
+				ij = 0;	/* Debug point */
 			ij = gmt_M_ijp (Gout->header, row, col);
 			Gout->data[ij] = (gmt_grdfloat)gmt_bcr_get_z (GMT, Gin, lon[col], lat);
 			if (Gout->data[ij] < Gout->header->z_min) Gout->header->z_min = Gout->data[ij];

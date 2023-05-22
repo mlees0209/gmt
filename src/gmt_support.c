@@ -12752,19 +12752,19 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 
 	/* d2/dx2 */	if (set[XLO]) G->data[jn + iwo1]   = (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jn + iwi1]);
 	/* d2/dy2 */	if (set[YHI]) G->data[jno1 + iw]   = (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jni1 + iw]);
-	/* d2/dxdy */	if (set[XLO] && set[YHI]) G->data[jno1 + iwo1] = G->data[jn + iwo1] + G->data[jno1 + iw] - G->data[jn + iw];
+	/* d2/dxdy */	if (set[XLO] || set[YHI]) G->data[jno1 + iwo1] = G->data[jn + iwo1] + G->data[jno1 + iw] - G->data[jn + iw];
 
 	/* d2/dx2 */	if (set[XHI]) G->data[jn + ieo1]   = (gmt_grdfloat)(2.0 * G->data[jn + ie] - G->data[jn + iei1]);
 	/* d2/dy2 */	if (set[YHI]) G->data[jno1 + ie]   = (gmt_grdfloat)(2.0 * G->data[jn + ie] - G->data[jni1 + ie]);
-	/* d2/dxdy */	if (set[XHI] && set[YHI]) G->data[jno1 + ieo1] = G->data[jn + ieo1] + G->data[jno1 + ie] - G->data[jn + ie];
+	/* d2/dxdy */	if (set[XHI] || set[YHI]) G->data[jno1 + ieo1] = G->data[jn + ieo1] + G->data[jno1 + ie] - G->data[jn + ie];
 
 	/* d2/dx2 */	if (set[XLO]) G->data[js + iwo1]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[js + iwi1]);
 	/* d2/dy2 */	if (set[YLO]) G->data[jso1 + iw]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[jsi1 + iw]);
-	/* d2/dxdy */	if (set[XLO] && set[YLO]) G->data[jso1 + iwo1] = G->data[js + iwo1] + G->data[jso1 + iw] - G->data[js + iw];
+	/* d2/dxdy */	if (set[XLO] || set[YLO]) G->data[jso1 + iwo1] = G->data[js + iwo1] + G->data[jso1 + iw] - G->data[js + iw];
 
 	/* d2/dx2 */	if (set[XHI]) G->data[js + ieo1]   = (gmt_grdfloat)(2.0 * G->data[js + ie] - G->data[js + iei1]);
 	/* d2/dy2 */	if (set[YLO]) G->data[jso1 + ie]   = (gmt_grdfloat)(2.0 * G->data[js + ie] - G->data[jsi1 + ie]);
-	/* d2/dxdy */	if (set[XHI] && set[YLO]) G->data[jso1 + ieo1] = G->data[js + ieo1] + G->data[jso1 + ie] - G->data[js + ie];
+	/* d2/dxdy */	if (set[XHI] || set[YLO]) G->data[jso1 + ieo1] = G->data[js + ieo1] + G->data[jso1 + ie] - G->data[js + ie];
 
 			/* Now set Laplacian = 0 on interior edge points, skipping corners:  */
 			for (i = iwi1; i <= iei1; i++) {
@@ -12877,15 +12877,15 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 			}
 		}
 		else {
-			/* Y needs natural conditions.  x bndry cols periodic.
+			/* Y needs natural conditions.  x boundary cols periodic.
 				First do Laplacian.  Start/end loop 1 col outside,
 				then use periodicity to set 2nd col outside.  */
 
 			for (i = iwo1; set[YHI] && i <= ieo1; i++) {
 				G->data[jno1 + i] = (gmt_grdfloat)(4.0 * G->data[jn + i]) - (G->data[jn + i - 1] + G->data[jn + i + 1] + G->data[jni1 + i]);
 			}
-			if (set[XLO] && set[YHI]) G->data[jno1 + iwo2] = G->data[jno1 + iwo2 + HH->nxp];
-			if (set[XHI] && set[YHI]) G->data[jno1 + ieo2] = G->data[jno1 + ieo2 - HH->nxp];
+			if (set[XLO] || set[YHI]) G->data[jno1 + iwo2] = G->data[jno1 + iwo2 + HH->nxp];
+			if (set[XHI] || set[YHI]) G->data[jno1 + ieo2] = G->data[jno1 + ieo2 - HH->nxp];
 
 
 			/* Now set d[Laplacian]/dn = 0, start/end loop 1 col out,
@@ -12895,8 +12895,8 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 				G->data[jno2 + i] = G->data[jni1 + i] + (gmt_grdfloat)(5.0 * (G->data[jno1 + i] - G->data[jn + i]))
 					+ (G->data[jn + i - 1] - G->data[jno1 + i - 1]) + (G->data[jn + i + 1] - G->data[jno1 + i + 1]);
 			}
-			if (set[XLO] && set[YHI]) G->data[jno2 + iwo2] = G->data[jno2 + iwo2 + HH->nxp];
-			if (set[XHI] && set[YHI]) G->data[jno2 + ieo2] = G->data[jno2 + ieo2 - HH->nxp];
+			if (set[XLO] || set[YHI]) G->data[jno2 + iwo2] = G->data[jno2 + iwo2 + HH->nxp];
+			if (set[XHI] || set[YHI]) G->data[jno2 + ieo2] = G->data[jno2 + ieo2 - HH->nxp];
 
 			/* End of X is periodic, north (top) is Natural.  */
 			if (set[YHI]) {
@@ -12934,8 +12934,8 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 			for (i = iwo1; set[YLO] && i <= ieo1; i++) {
 				G->data[jso1 + i] = (gmt_grdfloat)(4.0 * G->data[js + i]) - (G->data[js + i - 1] + G->data[js + i + 1] + G->data[jsi1 + i]);
 			}
-			if (set[XLO] && set[YLO]) G->data[jso1 + iwo2] = G->data[jso1 + iwo2 + HH->nxp];
-			if (set[XHI] && set[YHI]) G->data[jso1 + ieo2] = G->data[jso1 + ieo2 - HH->nxp];
+			if (set[XLO] || set[YLO]) G->data[jso1 + iwo2] = G->data[jso1 + iwo2 + HH->nxp];
+			if (set[XHI] || set[YHI]) G->data[jso1 + ieo2] = G->data[jso1 + ieo2 - HH->nxp];
 
 
 			/* Now set d[Laplacian]/dn = 0, start/end loop 1 col out,
@@ -12945,8 +12945,8 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 				G->data[jso2 + i] = G->data[jsi1 + i] + (gmt_grdfloat)(5.0 * (G->data[jso1 + i] - G->data[js + i]))
 					+ (G->data[js + i - 1] - G->data[jso1 + i - 1]) + (G->data[js + i + 1] - G->data[jso1 + i + 1]);
 			}
-			if (set[XLO] && set[YLO]) G->data[jso2 + iwo2] = G->data[jso2 + iwo2 + HH->nxp];
-			if (set[XHI] && set[YHI]) G->data[jso2 + ieo2] = G->data[jso2 + ieo2 - HH->nxp];
+			if (set[XLO] || set[YLO]) G->data[jso2 + iwo2] = G->data[jso2 + iwo2 + HH->nxp];
+			if (set[XHI] || set[YHI]) G->data[jso2 + ieo2] = G->data[jso2 + ieo2 - HH->nxp];
 
 			/* End of X is periodic, south (bottom) is Natural.  */
 			if (set[YLO]) {
