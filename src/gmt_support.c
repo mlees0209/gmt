@@ -12564,7 +12564,7 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 	uint64_t j1p, j2p;	/* j_o1 and j_o2 pole constraint rows  */
 	unsigned int n_skip, n_set;
 	unsigned int bok;		/* bok used to test that things are OK  */
-	bool set[4] = {true, true, true, true};
+	bool set[4] = {true, true, true, true}, do_it = false;
 	struct GMT_GRID_HEADER_HIDDEN *HH = gmt_get_H_hidden (G->header);
 
 	char *kind[5] = {"not set", "natural", "periodic", "geographic", "extended data"};
@@ -12627,7 +12627,7 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 	jso1k = jso1 - mxnyp;
 	jso2k = jso2 - mxnyp;
 
-	iwo1k = iwo1 + HH->nxp;	/* data cols periodic to bndry cols  */
+	iwo1k = iwo1 + HH->nxp;	/* data cols periodic to boundary cols  */
 	iwo2k = iwo2 + HH->nxp;
 	ieo1k = ieo1 - HH->nxp;
 	ieo2k = ieo2 - HH->nxp;
@@ -12750,21 +12750,55 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 				but explicitly that d2f/dx2 = 0 and d2f/dy2 = 0.
 				Also set d2f/dxdy = 0.  Then can set remaining points.  */
 
-	/* d2/dx2 */	if (set[XLO]) G->data[jn + iwo1]   = (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jn + iwi1]);
-	/* d2/dy2 */	if (set[YHI]) G->data[jno1 + iw]   = (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jni1 + iw]);
-	/* d2/dxdy */	if (set[XLO] || set[YHI]) G->data[jno1 + iwo1] = G->data[jn + iwo1] + G->data[jno1 + iw] - G->data[jn + iw];
+			/* The NW corner nodes (3) */
+			/* d2/dx2 = 0 */
+			do_it = (set[XLO] || set[YHI]);
+			G->data[jn + iwo1]   = (set[XLO]) ? (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jn + iwi1]) : GMT->session.f_NaN;
+			/* d2/dy2 = 0 */
+			G->data[jno1 + iw]   = (set[YHI]) ? (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jni1 + iw]) : GMT->session.f_NaN;
+			/* d2/dxdy = 0 */
+			if (!(set[XLO] && set[YHI])) G->data[jno1 + iwo2] = G->data[jno2 + iwo1] = G->data[jno2 + iwo2] = GMT->session.f_NaN;
 
-	/* d2/dx2 */	if (set[XHI]) G->data[jn + ieo1]   = (gmt_grdfloat)(2.0 * G->data[jn + ie] - G->data[jn + iei1]);
-	/* d2/dy2 */	if (set[YHI]) G->data[jno1 + ie]   = (gmt_grdfloat)(2.0 * G->data[jn + ie] - G->data[jni1 + ie]);
-	/* d2/dxdy */	if (set[XHI] || set[YHI]) G->data[jno1 + ieo1] = G->data[jn + ieo1] + G->data[jno1 + ie] - G->data[jn + ie];
+			/* The NE corner nodes (3) */
+			/* d2/dx2 = 0 */
+			do_it = (set[XHI] || set[YHI]);
+			if (do_it) G->data[jn + ieo1]   = (gmt_grdfloat)(2.0 * G->data[jn + ie] - G->data[jn + iei1]);
+			/* d2/dy2 = 0 */
+			if (do_it) G->data[jno1 + ie]   = (gmt_grdfloat)(2.0 * G->data[jn + ie] - G->data[jni1 + ie]);
+			/* d2/dxdy = 0 */	
+			if (!(set[XHI] && set[YHI])) G->data[jno1 + ieo2] = G->data[jno2 + ieo1] = G->data[jno2 + ieo2] = GMT->session.f_NaN;
 
-	/* d2/dx2 */	if (set[XLO]) G->data[js + iwo1]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[js + iwi1]);
-	/* d2/dy2 */	if (set[YLO]) G->data[jso1 + iw]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[jsi1 + iw]);
-	/* d2/dxdy */	if (set[XLO] || set[YLO]) G->data[jso1 + iwo1] = G->data[js + iwo1] + G->data[jso1 + iw] - G->data[js + iw];
+			/* The SW corner nodes (3) */
+			/* d2/dx2 = 0 */
+			do_it = (set[XLO] || set[YLO]);
+			if (do_it) G->data[js + iwo1]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[js + iwi1]);
+			/* d2/dy2 = 0 */
+			if (do_it) G->data[jso1 + iw]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[jsi1 + iw]);
+			/* d2/dxdy = 0 */
+			if (do_it) G->data[jso1 + iwo1] = G->data[js + iwo1] + G->data[jso1 + iw] - G->data[js + iw];
+			if (!(set[XLO] && set[YLO])) G->data[jso1 + iwo2] = G->data[jso2 + iwo1] = G->data[jso2 + iwo2] = GMT->session.f_NaN;
 
-	/* d2/dx2 */	if (set[XHI]) G->data[js + ieo1]   = (gmt_grdfloat)(2.0 * G->data[js + ie] - G->data[js + iei1]);
-	/* d2/dy2 */	if (set[YLO]) G->data[jso1 + ie]   = (gmt_grdfloat)(2.0 * G->data[js + ie] - G->data[jsi1 + ie]);
-	/* d2/dxdy */	if (set[XHI] || set[YLO]) G->data[jso1 + ieo1] = G->data[js + ieo1] + G->data[jso1 + ie] - G->data[js + ie];
+			/* The SW corner nodes (3) */
+			/* d2/dx2 = 0 */
+			if (set[XLO])	/* Have no data in left pad so use BC */
+				G->data[js + iwo1]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[js + iwi1]);
+			/* d2/dy2 = 0 */
+			if (set[YLO]) 	/* Have no data in bottom pad so use BC */
+				G->data[jso1 + iw]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[jsi1 + iw]);
+			/* d2/dxdy = 0 */
+			if (set[YLO]) G->data[jso1 + iwo1] = G->data[js + iwo1] + G->data[jso1 + iw] - G->data[js + iw];
+			if (!(set[XLO] && set[YLO])) G->data[jso1 + iwo2] = G->data[jso2 + iwo1] = G->data[jso2 + iwo2] = GMT->session.f_NaN;
+
+
+
+			/* The SE corner nodes (3) */
+			/* d2/dx2 = 0 */
+			do_it = (set[XHI] || set[YLO]);
+			if (do_it) G->data[js + ieo1]   = (gmt_grdfloat)(2.0 * G->data[js + ie] - G->data[js + iei1]);
+			/* d2/dy2 = 0 */
+			if (do_it) G->data[jso1 + ie]   = (gmt_grdfloat)(2.0 * G->data[js + ie] - G->data[jsi1 + ie]);
+			/* d2/dxdy = 0 */
+			if (!(set[XHI] && set[YLO])) G->data[jso1 + ieo2] = G->data[jso2 + ieo1] = G->data[jso2 + ieo2] = GMT->session.f_NaN;
 
 			/* Now set Laplacian = 0 on interior edge points, skipping corners:  */
 			for (i = iwi1; i <= iei1; i++) {
