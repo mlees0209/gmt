@@ -12752,12 +12752,27 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 
 			/* The NW corner nodes (3) */
 			/* d2/dx2 = 0 */
-			do_it = (set[XLO] || set[YHI]);
-			G->data[jn + iwo1]   = (set[XLO]) ? (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jn + iwi1]) : GMT->session.f_NaN;
+			//do_it = (set[XLO] || set[YHI]);
+			//G->data[jn + iwo1]   = (set[XLO]) ? (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jn + iwi1]) : GMT->session.f_NaN;
+			///* d2/dy2 = 0 */
+			//G->data[jno1 + iw]   = (set[YHI]) ? (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jni1 + iw]) : GMT->session.f_NaN;
+			///* d2/dxdy = 0 */
+			//if (!(set[XLO] && set[YHI])) G->data[jno1 + iwo2] = G->data[jno2 + iwo1] = G->data[jno2 + iwo2] = GMT->session.f_NaN;
+
+
+			/* The NW corner nodes (3) */
+			/* d2/dx2 = 0 */
+			if (set[XLO])	/* Have no data in left pad so use BC */
+				G->data[jn + iwo1]   = (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jn + iwi1]);
 			/* d2/dy2 = 0 */
-			G->data[jno1 + iw]   = (set[YHI]) ? (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jni1 + iw]) : GMT->session.f_NaN;
+			if (set[YHI]) 	/* Have no data in bottom pad so use BC */
+				G->data[jno1 + iw]   = (gmt_grdfloat)(2.0 * G->data[jn + iw] - G->data[jni1 + iw]);
 			/* d2/dxdy = 0 */
-			if (!(set[XLO] && set[YHI])) G->data[jno1 + iwo2] = G->data[jno2 + iwo1] = G->data[jno2 + iwo2] = GMT->session.f_NaN;
+			if (set[XLO]) G->data[jno1 + iwo2] = GMT->session.f_NaN;
+			if (set[YHI]) G->data[jno2 + iwo1] = GMT->session.f_NaN;
+			if (!(set[XLO] || set[YHI])) G->data[jno2 + iwo2] = GMT->session.f_NaN;
+
+
 
 			/* The NE corner nodes (3) */
 			/* d2/dx2 = 0 */
@@ -12780,14 +12795,15 @@ int gmt_grd_BC_set (struct GMT_CTRL *GMT, struct GMT_GRID *G, unsigned int direc
 
 			/* The SW corner nodes (3) */
 			/* d2/dx2 = 0 */
-			if (set[XLO])	/* Have no data in left pad so use BC */
-				G->data[js + iwo1]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[js + iwi1]);
-			/* d2/dy2 = 0 */
-			if (set[YLO]) 	/* Have no data in bottom pad so use BC */
-				G->data[jso1 + iw]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[jsi1 + iw]);
-			/* d2/dxdy = 0 */
-			if (set[YLO]) G->data[jso1 + iwo1] = G->data[js + iwo1] + G->data[jso1 + iw] - G->data[js + iw];
-			if (!(set[XLO] && set[YLO])) G->data[jso1 + iwo2] = G->data[jso2 + iwo1] = G->data[jso2 + iwo2] = GMT->session.f_NaN;
+			//if (set[XLO])	/* Have no data in left pad so use BC to set outside col iwo1 */
+			//	G->data[js + iwo1]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[js + iwi1]);
+			///* d2/dy2 = 0 */
+			//if (set[YLO]) 	/* Have no data in bottom pad so use BC to set outside row jso1 */
+			//	G->data[jso1 + iw]   = (gmt_grdfloat)(2.0 * G->data[js + iw] - G->data[jsi1 + iw]);
+			///* d2/dxdy = 0 */
+			//if (set[XLO]) G->data[jso1 + iwo2] = GMT->session.f_NaN;
+			//if (set[YLO]) G->data[jso2 + iwo1] = GMT->session.f_NaN;
+			//if (set[XLO] && set[YLO]) G->data[jso2 + iwo2] = GMT->session.f_NaN;
 
 
 
