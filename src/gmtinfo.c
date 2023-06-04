@@ -798,32 +798,34 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 					}
 					else {
 						uint64_t len, add;
-						if (brackets) {
+						if (brackets) {	/* Start with opening bracket - end with closing later */
 							strcat (record, "<");
-							r_length += 2;	/* Space for both < and > */
+							r_length += 2;	/* Update length for both < and > (not added yet) */
 						}
+						/* Format low value and get its string length */
 						gmt_ascii_format_col (GMT, buffer, low, GMT_OUT, col);
-						len = strlen (buffer) + 1;	/* Add delimiter in length */
-						if ((r_length += len) >= r_alloc) {
+						len = strlen (buffer) + 1;	/* We add 1 here for the delimiter to length */
+						if ((r_length += len) >= r_alloc) {	/* Must extend record */
 							r_alloc <<= 1;	/* Double memory */
 							record = gmt_M_memory (GMT, record, r_alloc, char);
 						}
 						strcat (record, buffer);	/* Append min string */
 						strcat (record, delimiter);	/* Append delimiter */
+						/* Format hight value and get its string length */
 						gmt_ascii_format_col (GMT, buffer, high, GMT_OUT, col);
-						add = (col < (ncol - 1)) ? 1 : 0;
+						add = (col < (ncol - 1)) ? 1 : 0;	/* All but last column have a TAB after it */
 						len = strlen (buffer) + add;	/* Add delimiter and possible TAB to length */
-						if ((r_length += len) >= r_alloc) {
+						if ((r_length += len) >= r_alloc) {	/* Must extend record */
 							r_alloc <<= 1;	/* Double memory */
 							record = gmt_M_memory (GMT, record, r_alloc, char);
 						}
-						strcat (record, buffer);
-						if (brackets) strcat (record, ">");
-						if (add) strcat (record, "\t");
+						strcat (record, buffer);	/* Append max string */
+						if (brackets) strcat (record, ">");	/* Close the opening bracket */
+						if (add) strcat (record, "\t");	/* If more to come, append the tab */
 					}
 				}
 			}
-			if (do_report && !GMT->common.b.active[GMT_OUT]) {
+			if (do_report) {
 				if (Ctrl->C.extra) {	/* Needed by gmtinit_get_region_from_data */
 					Out->data[4] = gmt_get_column_type (GMT, GMT_IN, GMT_X);
 					Out->data[5] = gmt_get_column_type (GMT, GMT_IN, GMT_Y);
@@ -995,7 +997,7 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 		gmt_M_free (GMT, dchosen);
 	gmt_M_free (GMT, record);
 
-	if (found_lon) {
+	if (found_lon) {	/* OK to free Z items */
 		for (col = 0; col < ncol; col++) if (Z[col]) gmt_M_free (GMT, Z[col]);
 	}
 
