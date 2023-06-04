@@ -403,21 +403,24 @@ static int parse (struct GMT_CTRL *GMT, struct GMTINFO_CTRL *Ctrl, struct GMT_OP
 	                                   "Only one of -I and -T can be specified\n");
 	n_errors += gmt_M_check_condition (GMT, Ctrl->T.active && Ctrl->T.inc <= 0.0 ,
 	                                   "Option -T: Must specify a positive increment.\n");
+	n_errors += gmt_M_check_condition (GMT, GMT->common.b.active[GMT_OUT],
+	                                   "Option -bo: No report is issued if binary output is selected.\n");
 	n_errors += gmt_check_binary_io (GMT, 1);
+
 	return (n_errors ? GMT_PARSE_ERROR : GMT_NOERROR);
 }
 
 #define bailout(code) {gmt_M_free_options (mode); return (code);}
-#define Return(code) {Free_Ctrl (GMT, Ctrl); gmt_M_free (GMT, xyzmin); gmt_M_free (GMT, xyzmax); gmt_M_free (GMT, xyzminL); gmt_M_free (GMT, lonmin);  gmt_M_free (GMT, lonmax); gmt_M_free (GMT, xyzmaxL); gmt_M_free (GMT, Q); gmt_M_free (GMT, Z); gmt_M_free (GMT, Out); gmt_end_module (GMT, GMT_cpy); bailout (code);}
+#define Return(code) {Free_Ctrl (GMT, Ctrl); gmt_M_free (GMT, xyzmin); gmt_M_free (GMT, xyzmax); gmt_M_free (GMT, xyzminL); gmt_M_free (GMT, lonmin);  gmt_M_free (GMT, lonmax); gmt_M_free (GMT, xyzmaxL); if (Q) gmt_M_free (GMT, Q); if (Z) gmt_M_free (GMT, Z); gmt_M_free (GMT, Out); gmt_end_module (GMT, GMT_cpy); bailout (code);}
 
 EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
-	bool got_stuff = false, first_data_record, give_r_string = false, save_t;
+	bool got_stuff = false, first_data_record, give_r_string = false, save_t, found_lon = false;
 	bool brackets = false, work_on_abs_value, do_report, done, full_range = false;
 	int i, j, error = 0, col_type[GMT_MAX_COLUMNS];
 	unsigned int fixed_phase[2] = {1, 1}, min_cols, save_range, n_items = 0;
-	uint64_t col, ncol = 0, n = 0, n_alloc = GMT_BIG_CHUNK;
+	uint64_t col, ncol = 0, n = 0, n_alloc = GMT_BIG_CHUNK, r_alloc = GMT_INITIAL_MEM_ROW_ALLOC, r_length = 0;
 
-	char file[PATH_MAX] = {""}, chosen[GMT_BUFSIZ] = {""}, record[GMT_BUFSIZ] = {""};
+	char file[PATH_MAX] = {""}, chosen[GMT_BUFSIZ] = {""}, *record = NULL;
 	char buffer[GMT_BUFSIZ] = {""}, delimiter[2] = {""}, *t_ptr = NULL;
 
 	double *xyzmin = NULL, *xyzmax = NULL, *in = NULL, *dchosen = NULL, phase[2] = {0.0, 0.0}, this_phase, off;
@@ -569,6 +572,7 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 	save_range = GMT->current.io.geo.range;
 	GMT->current.io.geo.range = GMT_IGNORE_RANGE;	/* Ensure no adjustment will happen since we control it here */
 	d_ptr = (Ctrl->C.active || Ctrl->E.active) ? GMT->current.io.curr_rec : ((Ctrl->I.mode == BOUNDBOX) ? out : NULL);
+	record = gmt_M_memory (GMT, NULL, GMT_BUFSIZ, char);
 	t_ptr = (d_ptr && !Ctrl->E.active) ? NULL : record;
 	Out = gmt_new_record (GMT, d_ptr, t_ptr);
 	first_data_record = true;
@@ -588,7 +592,7 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 				Z[col][n_items].west = Q[col].min[j];	Z[col][n_items].east = Q[col].max[j];
 				n_items++;
 			}
-			gmt_quad_reset (GMT, Q, ncol);
+			if (found_lon) gmt_quad_reset (GMT, Q, ncol);
 			if (gmt_M_rec_is_segment_header (GMT) && Ctrl->A.mode != REPORT_PER_SEGMENT) continue;	/* Since we are not reporting per segment they are just headers as far as we are concerned */
 		}
 
@@ -755,6 +759,7 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 						sprintf (record, "%s", file);
 					sprintf (buffer, ": N = %" PRIu64 "\t", n);					/* Number of records in this item */
 					strcat (record, buffer);
+					r_length = strlen (record);
 				}
 				for (col = 0; col < ncol; col++) {	/* Report min/max for each column in the format controlled by -C */
 					if (xyzmin[col] == DBL_MAX)	/* Encountered NaNs only */
@@ -792,18 +797,33 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 						GMT->current.io.curr_rec[2*col+1] = high;
 					}
 					else {
-						if (brackets) strcat (record, "<");
+						uint64_t len, add;
+						if (brackets) {
+							strcat (record, "<");
+							r_length += 2;	/* Space for both < and > */
+						}
 						gmt_ascii_format_col (GMT, buffer, low, GMT_OUT, col);
-						strcat (record, buffer);
-						strcat (record, delimiter);
+						len = strlen (buffer) + 1;	/* Add delimiter in length */
+						if ((r_length += len) >= r_alloc) {
+							r_alloc <<= 1;	/* Double memory */
+							record = gmt_M_memory (GMT, record, r_alloc, char);
+						}
+						strcat (record, buffer);	/* Append min string */
+						strcat (record, delimiter);	/* Append delimiter */
 						gmt_ascii_format_col (GMT, buffer, high, GMT_OUT, col);
+						add = (col < (ncol - 1)) ? 1 : 0;
+						len = strlen (buffer) + add;	/* Add delimiter and possible TAB to length */
+						if ((r_length += len) >= r_alloc) {
+							r_alloc <<= 1;	/* Double memory */
+							record = gmt_M_memory (GMT, record, r_alloc, char);
+						}
 						strcat (record, buffer);
 						if (brackets) strcat (record, ">");
-						if (col < (ncol - 1)) strcat (record, "\t");
+						if (add) strcat (record, "\t");
 					}
 				}
 			}
-			if (do_report) {
+			if (do_report && !GMT->common.b.active[GMT_OUT]) {
 				if (Ctrl->C.extra) {	/* Needed by gmtinit_get_region_from_data */
 					Out->data[4] = gmt_get_column_type (GMT, GMT_IN, GMT_X);
 					Out->data[5] = gmt_get_column_type (GMT, GMT_IN, GMT_Y);
@@ -866,8 +886,6 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 
 			/* Now we know number of columns, so allocate memory */
 
-			Q = gmt_quad_init (GMT, ncol);
-			Z = gmt_M_memory (GMT, NULL, ncol, struct GMT_RANGE *);
 			xyzmin = gmt_M_memory (GMT, NULL, ncol, double);
 			xyzmax = gmt_M_memory (GMT, NULL, ncol, double);
 			xyzminL = gmt_M_memory (GMT, NULL, ncol, double);
@@ -878,8 +896,14 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 			for (col = 0; col < ncol; col++) {	/* Initialize */
 				xyzmin[col] = xyzmaxL[col] = DBL_MAX;
 				xyzmax[col] = xyzminL[col] = -DBL_MAX;
-				if (GMT->current.io.col_type[GMT_IN][col] == GMT_IS_LON)
+				if (GMT->current.io.col_type[GMT_IN][col] == GMT_IS_LON) {
+					if (!found_lon) {
+						Q = gmt_quad_init (GMT, ncol);
+						Z = gmt_M_memory (GMT, NULL, ncol, struct GMT_RANGE *);
+						found_lon = true;
+					}
 					Z[col] = gmt_M_memory (GMT, NULL, n_alloc, struct GMT_RANGE);
+				}
 			}
 			n = 0;
 			if (Ctrl->I.active && ncol < 2 && !Ctrl->C.active) Ctrl->I.active = false;
@@ -969,8 +993,11 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 	}
 	if (Ctrl->E.active)
 		gmt_M_free (GMT, dchosen);
+	gmt_M_free (GMT, record);
 
-	for (col = 0; col < ncol; col++) gmt_M_free (GMT, Z[col]);
+	if (found_lon) {
+		for (col = 0; col < ncol; col++) if (Z[col]) gmt_M_free (GMT, Z[col]);
+	}
 
 	GMT->current.setting.io_lonlat_toggle[GMT_OUT] = save_t;
 
