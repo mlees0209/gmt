@@ -811,7 +811,7 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 						}
 						strcat (record, buffer);	/* Append min string */
 						strcat (record, delimiter);	/* Append delimiter */
-						/* Format hight value and get its string length */
+						/* Format high value and get its string length */
 						gmt_ascii_format_col (GMT, buffer, high, GMT_OUT, col);
 						add = (col < (ncol - 1)) ? 1 : 0;	/* All but last column have a TAB after it */
 						len = strlen (buffer) + add;	/* Add delimiter and possible TAB to length */
