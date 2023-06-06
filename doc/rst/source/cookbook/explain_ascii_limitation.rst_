@@ -1,0 +1,12 @@
+ASCII Limitations
+-----------------
+
+The GMT ASCII i/o machinery for data sets currently uses hardwired text buffers of
+size 4096 bytes.  Hence, ASCII data sets are limited to the number of data columns
+that fit in such buffers. The column dimension, of course, then depends on how 
+many bytes each column occupies, something that is related to data precision and
+selected formatting.  For instance, if each data value requires 10 bytes separated
+by a tab or space then you may be able to read ASCII tables with up to ~375 columns.
+More bytes per number means fewer columns.  No similar limitation applies to the number
+of rows in a file. Thus, to handle data sets with a large number of columns we
+recommend using native binary formats or netCDF.

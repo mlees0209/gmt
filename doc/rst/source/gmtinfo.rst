@@ -207,6 +207,8 @@ Optional Arguments
 
 .. include:: explain_precision.rst_
 
+.. include:: explain_ascii_limitation.rst_
+
 Examples
 --------
 

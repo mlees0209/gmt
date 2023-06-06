@@ -21,7 +21,7 @@ means the number of columns in, say, an ASCII data table is limited to what fits
 that buffer.  This further depends on the precision of your data and the format used.
 For instance, if each data value requires 10 bytes separated by a tab or space then
 you may be able to read ASCII tables with up to ~375 columns.  More bytes per number
-means fewer columns.  No similar limitation apply to the number of rows in a file.
+means fewer columns.  No similar limitation applies to the number of rows in a file.
 
 Optional file header records
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
