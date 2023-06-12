@@ -109,7 +109,7 @@ out parameters for pre-processing. The available types are
 
 To use the extra parameters in your macro you address them as $1, $2, etc.  There
 is no limit on how many parameters your symbol may use. To access the trailing text in
-the input file you use $t and for a particular word (number k = 0, 1, ...) in the
+the input file you use $t and for a particular word (number *k* = 0, 1, ...) in the
 trailing text you use $t\ *k*.
 
 Angles and azimuths
@@ -213,7 +213,7 @@ has already been specified via **N:** above and already converged before seen by
 Finally, the **O** command can also be given the negative of a variable, e.g., -$2 to
 undo a rotation, if necessary.
 Note for **v**: The vector stem and head outline are always drawn. Head properties are automatically derived from
-the *width* of the pen only (head length = 8 times pen width, apex = 30 degrees, shape = 0.5).
+the *width* of the pen only (head *length* = 8 times pen width, *apex* = 30 degrees, *shape* = 0.5).
 
 Symbol fill and outline
 ~~~~~~~~~~~~~~~~~~~~~~~

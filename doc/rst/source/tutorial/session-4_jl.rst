@@ -203,7 +203,7 @@ arrow pointing to the *y*-value).
    :align: center
 
    How the inverse tangent operation works. Raw slope values (left) are processed
-   via the inverse tangent operator, turning tan(x) into x and thus compressing
+   via the inverse tangent operator, turning :math:`\tan(x)` into *x* and thus compressing
    the data range. The transformed slopes are more normally distributed (right).
 
 **cauchy**\ =true and **laplace**\ =true yield well behaved gradients. Personally, we prefer to use the

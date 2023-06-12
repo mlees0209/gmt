@@ -88,7 +88,7 @@ Optional Arguments
     Transform the grid in one of six ways and (for **l**\|\ **r**\|\ **t**)
     interchange the *x* and *y* information:
     **-Ea** will flip the grid both horizontally and vertically,
-    **-Ee** will exchange the x (longitude) and y (latitude) dimensions,
+    **-Ee** will exchange the *x* (longitude) and *y* (latitude) dimensions,
     **-Eh** will flip the grid horizontally (left-to-right),
     **-El** will rotate the grid 90 degrees counter-clockwise (left),
     **-Er** will rotate the grid 90 degrees clockwise (right),

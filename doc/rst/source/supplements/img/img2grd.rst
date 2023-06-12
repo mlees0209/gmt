@@ -84,7 +84,7 @@ Optional Arguments
 .. _-F:
 
 **-F**
-    Translate the x and y Mercator coordinates so that they are relative
+    Translate the *x* and *y* Mercator coordinates so that they are relative
     to the lower left corner, which then is (0,0). Requires |-M|.
 
 .. _-I:

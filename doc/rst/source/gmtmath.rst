@@ -223,7 +223,7 @@ and output arguments.
   **ATAN2D**      2 1     Inverse of tangent of A/B (result in degrees)                                               Calculus           
   **ATAND**       1 1     Inverse of tangent (result in degrees)                                                      Calculus           
   **ATANH**       1 1     Inverse of hyperbolic tangent                                                               Calculus           
-  **BCDF**        3 1     Binomial cumulative distribution function for p = A, n = B, and x = C                       Probability        
+  **BCDF**        3 1     Binomial cumulative distribution function for *p* = A, *n* = B, and *x* = C                       Probability        
   **BEI**         1 1     Kelvin function bei (A)                                                                     Special Functions  
   **BER**         1 1     Kelvin function ber (A)                                                                     Special Functions  
   **BITAND**      2 1     A & B (bitwise AND operator)                                                                Logic              
@@ -233,13 +233,13 @@ and output arguments.
   **BITRIGHT**    2 1     A >> B (bitwise right-shift operator)                                                       Arithmetic         
   **BITTEST**     2 1     1 if bit B of A is set, else 0 (bitwise TEST operator) n                                    Logic              
   **BITXOR**      2 1     A ^ B (bitwise XOR operator)                                                                Logic              
-  **BPDF**        3 1     Binomial probability density function for p = A, n = B, and x = C                           Probability        
+  **BPDF**        3 1     Binomial probability density function for *p* = A, *n* = B, and *x* = C                           Probability        
   **CEIL**        1 1     ceil (A) (smallest integer >= A)                                                            Logic              
-  **CHICDF**      2 1     Chi-squared cumulative distribution function for chi2 = A and nu = B                        Probability        
-  **CHICRIT**     2 1     Chi-squared distribution critical value for alpha = A and nu = B                            Probability        
-  **CHIPDF**      2 1     Chi-squared probability density function for chi2 = A and nu = B                            Probability        
+  **CHICDF**      2 1     Chi-squared cumulative distribution function for *chi* = A and *n* = B                        Probability        
+  **CHICRIT**     2 1     Chi-squared distribution critical value for *alph* = A and ** = B                            Probability        
+  **CHIPDF**      2 1     Chi-squared probability density function for *c* = A and *nu* = B                            Probability        
   **COL**         1 1     Places column A on the stack                                                                Special Operators  
-  **COMB**        2 1     Combinations n_C_r, with n = A and r = B                                                    Probability        
+  **COMB**        2 1     Combinations n_C_r, with *n* = A and *r* = B                                                    Probability        
   **CORRCOEFF**   2 1     Correlation coefficient r(A, B)                                                             Probability        
   **COS**         1 1     Cosine of A (A in radians)                                                                  Calculus           
   **COSD**        1 1     Cosine of A (A in degrees)                                                                  Calculus           
@@ -257,9 +257,9 @@ and output arguments.
   **DILOG**       1 1     Dilogarithm (Spence's) function                                                             Special Functions  
   **DIV**         2 1     A / B (division)                                                                            Arithmetic         
   **DUP**         1 2     Places duplicate of A on the stack                                                          Special Operators  
-  **ECDF**        2 1     Exponential cumulative distribution function for x = A and lambda = B                       Probability        
-  **ECRIT**       2 1     Exponential distribution critical value for alpha = A and lambda = B                        Probability        
-  **EPDF**        2 1     Exponential probability density function for x = A and lambda = B                           Probability        
+  **ECDF**        2 1     Exponential cumulative distribution function for *x* = A and *lambda* = B                       Probability        
+  **ECRIT**       2 1     Exponential distribution critical value for *alpha* = A and *lambda* = B                        Probability        
+  **EPDF**        2 1     Exponential probability density function for *x* = A and *lambda* = B                           Probability        
   **EQ**          2 1     1 if A equals B, else 0                                                                     Logic              
   **ERF**         1 1     Error function erf (A)                                                                      Probability        
   **ERFC**        1 1     Complementary Error function erfc (A)                                                       Probability        
@@ -267,17 +267,17 @@ and output arguments.
   **EXCH**        2 2     Exchanges A and B on the stack                                                              Special Operators  
   **EXP**         1 1     E raised to a power.                                                                        Arithmetic         
   **FACT**        1 1     A! (A factorial)                                                                            Arithmetic         
-  **FCDF**        3 1     F cumulative distribution function for F = A, nu1 = B, and nu2 = C                          Probability        
-  **FCRIT**       3 1     F distribution critical value for alpha = A, nu1 = B, and nu2 = C                           Probability        
+  **FCDF**        3 1     F cumulative distribution function for *F* = A, *nu1* = B, and *nu2* = C                          Probability        
+  **FCRIT**       3 1     F distribution critical value for *alpha* = A, *nu1* = B, and *nu2* = C                           Probability        
   **FLIPUD**      1 1     Reverse order of each column                                                                Special Operators  
   **FLOOR**       1 1     greatest integer less than or equal to A                                                    Logic              
   **FMOD**        2 1     A % B (remainder after truncated division)                                                  Arithmetic         
-  **FPDF**        3 1     F probability density function for F = A, nu1 = B, and nu2 = C                              Probability        
+  **FPDF**        3 1     F probability density function for *F* = A, *nu1* = B, and *nu2* = C                              Probability        
   **GE**          2 1     1 if A >= (greater or equal than) B, else 0                                                 Logic              
   **GT**          2 1     1 if A > (greater than) B, else 0                                                           Logic              
-  **HSV2LAB**     3 3     Convert h,s,v triplets to l,a,b triplets, with h = A (0-360), s = B and v = C (0-1)         Special Operators  
-  **HSV2RGB**     3 3     Convert h,s,v triplets to r,g,b triplets, with h = A (0-360), s = B and v = C (0-1)         Special Operators  
-  **HSV2XYZ**     3 3     Convert h,s,v triplets to x,t,z triplets, with h = A (0-360), s = B and v = C (0-1)         Special Operators  
+  **HSV2LAB**     3 3     Convert *h,s,v* triplets to *l,a,b* triplets, with *h* = A (0-360), *s* = B and *v* = C (0-1)         Special Operators  
+  **HSV2RGB**     3 3     Convert *h,s,v* triplets to *r,g,b* triplets, with *h* = A (0-360), *s* = B and *v* = C (0-1)         Special Operators  
+  **HSV2XYZ**     3 3     Convert *h,s,v* triplets to *x,y,z* triplets, with *h* = A (0-360), *s* = B and *v* = C (0-1)         Special Operators  
   **HYPOT**       2 1     Hypotenuse of a right triangle of sides A and B (= sqrt (A\ :sup:`2` + B\ :sup:`2`))        Calculus           
   **I0**          1 1     Modified Bessel function of A (1st kind, order 0)                                           Special Functions  
   **I1**          1 1     Modified Bessel function of A (1st kind, order 1)                                           Special Functions  
@@ -301,8 +301,8 @@ and output arguments.
   **LAB2HSV**     3 3     Convert l,a,b triplets to h,s,v triplets                                                    Special Operators  
   **LAB2RGB**     3 3     Convert l,a,b triplets to r,g,b triplets                                                    Special Operators  
   **LAB2XYZ**     3 3     Convert l,a,b triplets to x,y,z triplets                                                    Special Operators  
-  **LCDF**        1 1     Laplace cumulative distribution function for z = A                                          Probability        
-  **LCRIT**       1 1     Laplace distribution critical value for alpha = A                                           Probability        
+  **LCDF**        1 1     Laplace cumulative distribution function for *z* = A                                          Probability        
+  **LCRIT**       1 1     Laplace distribution critical value for *alpha* = A                                           Probability        
   **LE**          2 1     1 if A <= (equal or smaller than) B, else 0                                                 Logic              
   **LMSSCL**      1 1     LMS (Least Median of Squares) scale estimate (LMS STD) of A                                 Probability        
   **LMSSCLW**     2 1     Weighted LMS scale estimate (LMS STD) of A for weights in B                                 Probability        
@@ -311,9 +311,9 @@ and output arguments.
   **LOG1P**       1 1     log (1+A) (natural logarithm, accurate for small A)                                         Arithmetic         
   **LOG2**        1 1     log\ :sub:`2` (A) (logarithm base 2)                                                        Arithmetic         
   **LOWER**       1 1     The lowest (minimum) value of A                                                             Arithmetic         
-  **LPDF**        1 1     Laplace probability density function for z = A                                              Probability        
+  **LPDF**        1 1     Laplace probability density function for *z* = A                                              Probability        
   **LRAND**       2 1     Laplace random noise with mean A and std. deviation B                                       Probability        
-  **LSQFIT**      1 0     Let current table be [A | b] return least squares solution x = A \ b                        Special Operators  
+  **LSQFIT**      1 0     Let current table be [A | b] return least squares solution **x** = **A** \ **b**                        Special Operators  
   **LT**          2 1     1 if A < (smaller than) B, else 0                                                           Logic              
   **MAD**         1 1     Median Absolute Deviation (L1 STD) of A                                                     Probability        
   **MADW**        2 1     Weighted Median Absolute Deviation (L1 STD) of A for weights in B                           Probability        
@@ -334,33 +334,33 @@ and output arguments.
   **NOT**         1 1     NaN ia A is equal NaN, 1 if A is equal to 0, else 0                                         Logic              
   **NRAND**       2 1     Normal, random values with mean A and std. deviation B                                      Probability        
   **OR**          2 1     NaN if B equals NaN, else A                                                                 Logic              
-  **PCDF**        2 1     Poisson cumulative distribution function for x = A and lambda = B                           Probability        
-  **PERM**        2 1     Permutations n_P_r, with n = A and r = B                                                    Probability        
+  **PCDF**        2 1     Poisson cumulative distribution function for *x* = A and *lambda* = B                           Probability        
+  **PERM**        2 1     Permutations n_P_r, with *n* = A and *r* = B                                                    Probability        
   **PLM**         3 1     Associated Legendre polynomial P(A) degree B order C                                        Special Functions  
   **PLMg**        3 1     Normalized associated Legendre polynomial P(A) degree B order C (geophysical convention)    Special Functions  
   **POP**         1 0     Delete top element from the stack                                                           Special Operators  
   **POW**         2 1     A to the power of B                                                                         Arithmetic         
-  **PPDF**        2 1     Poisson distribution P(x,lambda), with x = A and lambda = B                                 Probability        
+  **PPDF**        2 1     Poisson distribution P(x,lambda), with *x* = A and *lambda* = B                                 Probability        
   **PQUANT**      2 1     The B’th quantile (0-100%) of A                                                             Probability        
   **PQUANTW**     3 1     The C’th weighted quantile (0-100%) of A for weights in B                                   Probability        
   **PSI**         1 1     Psi (or Digamma) of A                                                                       Special Functions  
-  **PV**          3 1     Legendre function Pv(A) of degree v = real(B) + imag(C)                                     Special Functions  
-  **QV**          3 1     Legendre function Qv(A) of degree v = real(B) + imag(C)                                     Special Functions  
+  **PV**          3 1     Legendre function Pv(A) of degree *v* = real(B) + imag(C)                                     Special Functions  
+  **QV**          3 1     Legendre function Qv(A) of degree *v* = real(B) + imag(C)                                     Special Functions  
   **R2**          2 1     Hypotenuse squared (= A\ :sup:`2` + B\ :sup:`2`)                                                            Calculus           
   **R2D**         1 1     Convert radians to degrees                                                                  Special Operators  
   **RAND**        2 1     Uniform random values between A and B                                                       Probability        
-  **RCDF**        1 1     Rayleigh cumulative distribution function for z = A                                         Probability        
+  **RCDF**        1 1     Rayleigh cumulative distribution function for *z* = A                                         Probability        
   **RCRIT**       1 1     Rayleigh distribution critical value for alpha = A                                          Probability        
-  **RGB2HSV**     3 3     Convert r,g,b triplets to h,s,v triplets, with r = A, g = B, and b = C (in 0-255 range)     Special Operators  
-  **RGB2LAB**     3 3     Convert r,g,b triplets to l,a,b triplets, with r = A, g = B, and b = C (in 0-255 range)     Special Operators  
-  **RGB2XYZ**     3 3     Convert r,g,b triplets to x,y,x triplets, with r = A, g = B, and b = C (in 0-255 range)     Special Operators  
+  **RGB2HSV**     3 3     Convert *r,g,b* triplets to *h,s,v* triplets, with *r* = A, *g* = B, and *b* = C (in 0-255 range)     Special Operators  
+  **RGB2LAB**     3 3     Convert *r,g,b* triplets to *l,a,b* triplets, with *r* = A, *g* = B, and *b* = C (in 0-255 range)     Special Operators  
+  **RGB2XYZ**     3 3     Convert *r,g,b* triplets to *x,y,x* triplets, with *r* = A, *g* = B, and *b* = C (in 0-255 range)     Special Operators  
   **RINT**        1 1     Rint (A) (round to integral value nearest to A)                                             Arithmetic         
   **RMS**         1 1     Root-mean-square of A                                                                       Arithmetic         
   **RMSW**        1 1     Weighted root-mean-square of A for weights in B                                             Arithmetic         
   **ROLL**        2 0     Cyclically shifts the top A stack items by an amount B                                      Special Operators  
   **ROOTS**       2 1     Treats col A as f(t) = 0 and returns its roots                                              Special Operators  
   **ROTT**        2 1     Rotate A by the (constant) shift B in the t-direction                                       Arithmetic         
-  **RPDF**        1 1     Rayleigh probability density function for z = A                                             Probability        
+  **RPDF**        1 1     Rayleigh probability density function for *z* = A                                             Probability        
   **SEC**         1 1     Secant of A (A in radians)                                                                  Calculus           
   **SECD**        1 1     Secant of A (A in degrees)                                                                  Calculus           
   **SIGN**        1 1     Sign (+1 or -1) of A                                                                        Logic              
@@ -381,27 +381,27 @@ and output arguments.
   **TAND**        1 1     Tangent of A (A in degrees)                                                                 Calculus           
   **TANH**        1 1     Hyperbolic tangent of A                                                                     Calculus           
   **TAPER**       1 1     Unit weights cosine-tapered to zero within A of end margins                                 Special Operators  
-  **TCDF**        2 1     Student’s t cumulative distribution function for t = A, and nu = B                          Probability        
-  **TCRIT**       2 1     Student’s t distribution critical value for alpha = A and nu = B                            Probability        
+  **TCDF**        2 1     Student’s t cumulative distribution function for *t* = A and *nu* = B                          Probability        
+  **TCRIT**       2 1     Student’s t distribution critical value for *alpha* = A and *nu* = B                            Probability        
   **TN**          2 1     Chebyshev polynomial Tn(-1<A<+1) of degree B                                                Special Functions  
-  **TPDF**        2 1      Student’s t probability density function for t = A, and nu = B                             Probability        
+  **TPDF**        2 1      Student’s t probability density function for *t* = A and *nu* = B                             Probability        
   **UPPER**       1 1     The highest (maximum) value of A                                                            Arithmetic         
   **VAR**         1 1     Variance of A                                                                               Probability        
   **VARW**        2 1     Weighted variance of A for weights in B                                                     Probability        
-  **VPDF**        3 1     Von Mises density distribution V(x,mu,kappa), with angles = A, mu = B, and kappa = C        Probability        
-  **WCDF**        3 1     Weibull cumulative distribution function for x = A, scale = B, and shape = C                Probability        
-  **WCRIT**       3 1     Weibull distribution critical value for alpha = A, scale = B, and shape = C                 Probability        
-  **WPDF**        3 1     Weibull density distribution P(x,scale,shape), with x = A, scale = B, and shape = C         Probability        
+  **VPDF**        3 1     Von Mises density distribution V(x,mu,kappa), with *angles* = A, *mu* = B, and *kappa* = C        Probability        
+  **WCDF**        3 1     Weibull cumulative distribution function for *x* = A, *scale* = B, and *shape* = C                Probability        
+  **WCRIT**       3 1     Weibull distribution critical value for *alpha* = A, *scale* = B, and *shape* = C                 Probability        
+  **WPDF**        3 1     Weibull density distribution P(x,scale,shape), with *x* = A, *scale* = B, and *shape* = C         Probability        
   **XOR**         2 1     B if A equals NaN, else A                                                                   Logic              
-  **XYZ2HSV**     3 3     Convert x,y,z triplets to h,s,v triplets                                                    Special Operators  
-  **XYZ2LAB**     3 3     Convert x,y,z triplets to l,a,b triplets                                                    Special Operators  
-  **XYZ2RGB**     3 3     Convert x,y,z triplets to r,g,b triplets                                                    Special Operators  
+  **XYZ2HSV**     3 3     Convert *x,y,z* triplets to *h,s,v* triplets                                                    Special Operators  
+  **XYZ2LAB**     3 3     Convert *x,y,z* triplets to *l,a,b* triplets                                                    Special Operators  
+  **XYZ2RGB**     3 3     Convert *x,y,z* triplets to *r,g,b* triplets                                                    Special Operators  
   **Y0**          1 1     Bessel function of A (2nd kind, order 0)                                                    Special Functions  
   **Y1**          1 1     Bessel function of A (2nd kind, order 1)                                                    Special Functions  
   **YN**          2 1     Bessel function of A (2nd kind, order B)                                                    Special Functions  
-  **ZCDF**        1 1     Normal cumulative distribution function for z = A                                           Probability        
-  **ZCRIT**       1 1     Normal distribution critical value for alpha = A                                            Probability        
-  **ZPDF**        1 1     Normal probability density function for z = A                                               Probability        
+  **ZCDF**        1 1     Normal cumulative distribution function for *z* = A                                           Probability        
+  **ZCRIT**       1 1     Normal distribution critical value for *alpha* = A                                            Probability        
+  **ZPDF**        1 1     Normal probability density function for *z* = A                                               Probability        
  =============== ======= =========================================================================================== =================== 
  
 Symbols

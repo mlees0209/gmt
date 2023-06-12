@@ -10,10 +10,10 @@ The **-p** option
 
 All plotting programs that normally produce a flat, two-dimensional illustration can be told to view this flat
 illustration from a particular vantage point, resulting in a perspective view. You can select perspective view with
-the **-p** option by setting the azimuth (*azim*) of the viewpoint [Default is 180]. The following modifiers are
+the **-p** option by setting the azimuth (*azim*) of the viewpoint [Default is 180]. The following directives are
 supported:
 
-- **x**\|\ **y**\|\ **z** to plot against the "wall" x = level (using **x**) or y = level (using **y**) or the
+- **x**\|\ **y**\|\ **z** to plot against the "wall" *x* = level (using **x**) or *y* = level (using **y**) or the
   horizontal plain (using **z**) [default is **z**].
 - */elev* to set the elevation of the viewport [Default is 90].
 - */zlevel* to indicate the z-level at which all 2D material, like the plot frame, is plotted (only valid when **-p**

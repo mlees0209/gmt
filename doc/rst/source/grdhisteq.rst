@@ -137,12 +137,12 @@ Notes
    area of each node varies with latitude.
 #. If you use **grdhisteq** to make a Gaussian output for gradient shading
    in :doc:`grdimage` or :doc:`grdview`, you should be aware of the following:
-   the output will be in the range [-x, x], where x is based on the number
+   the output will be in the range [*-x, x*], where *x* is based on the number
    of data in the input grid (nx \* ny) and the cumulative Gaussian
-   distribution function F(x). That is, let N = nx \* ny. Then x will be
+   distribution function F(x). That is, let N = nx \* ny. Then *x* will be
    adjusted so that F(x) = (N - 1 + 0.5)/N. Since about 68% of the values
    from a standard normal distribution fall within ±\ 1, this will be true
-   of the output grid. But if N is very large, it is possible for x to be
+   of the output grid. But if N is very large, it is possible for *x* to be
    greater than 4. Therefore, with the :doc:`grdview` program clipping
    gradients to the range [-1, 1], you will get correct shading of 68% of
    your data, while 16% of them will be clipped to -1 and 16% of them

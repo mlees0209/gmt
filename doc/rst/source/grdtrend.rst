@@ -103,7 +103,7 @@ Optional Arguments
 Remarks
 -------
 
-The domain of x and y will be shifted and scaled to [-1, 1] and the
+The domain of *x* and *y* will be shifted and scaled to [-1, 1] and the
 basis functions are built from Legendre polynomials. These have a
 numerical advantage in the form of the matrix which must be inverted and
 allow more accurate solutions. NOTE: The model parameters listed with

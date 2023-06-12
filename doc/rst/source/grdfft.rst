@@ -85,7 +85,7 @@ Optional Arguments
 **-E**\ [**r**\|\ **x**\|\ **y**][**+w**\ [**k**]][**+n**]
     Estimate power spectrum in the radial direction [**r**]. Place
     **x** or **y** immediately after |-E| to compute the spectrum in
-    the x or y direction instead. No grid file is created. If one grid
+    the *x* or *y* direction instead. No grid file is created. If one grid
     is given then f (i.e., frequency or wave number), power[f],
     and 1 standard deviation in power[f] are written to the file set by
     |-G| [standard output]. If two grids are given we write f and 8 quantities:

@@ -88,7 +88,7 @@ Optional Arguments
 .. _-A:
 
 **-A**
-    Plot the histogram horizontally from x = 0 [Default is vertically
+    Plot the histogram horizontally from *x* = 0 [Default is vertically
     from y = 0].  The plot dimensions remain the same, but the two
     axes are flipped.
 

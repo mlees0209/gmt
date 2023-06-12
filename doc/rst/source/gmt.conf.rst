@@ -100,7 +100,7 @@ COLOR Parameters
         in CMYK but interpolates in RGB) [default is **none**].
 
     **COLOR_NAN**
-        Color used for the non-defined areas of images (i.e., where z = NaN)
+        Color used for the non-defined areas of images (i.e., where *z* = NaN)
         [default is **128**].  **Note**: If the current CPT has a color
         specification for NaN values then that takes precedence.
 
@@ -863,8 +863,8 @@ MAP Parameters
         at the *pc_lat* latitude. Alternatively, give **auto** to determine a
         *pc_lat* suitable for your region [default is
         :doc:`theme dependent <theme-settings>`]. Note for r-theta (polar)
-        projection where r = 0 is at the center of the plot the meaning of the
-        cap is reversed, i.e., *85/90* will draw a r = 5 radius circle at the
+        projection where *r* = 0 is at the center of the plot the meaning of the
+        cap is reversed, i.e., *85/90* will draw a *r* = 5 radius circle at the
         center of the map with less frequent radial lines there.
 
     **MAP_SCALE_HEIGHT**
@@ -908,7 +908,7 @@ MAP Parameters
 
     **MAP_VECTOR_SHAPE**
         Determines the shape of the head of a vector. Normally (i.e., for
-        vector_shape = **0**), the head will be triangular, but can be changed
+        **MAP_VECTOR_SHAPE** = **0**), the head will be triangular, but can be changed
         to an arrow (**1**) or an open V (**2**). Intermediate settings give
         something in between. Negative values (up to **-2**) are allowed as well
         [default is :doc:`theme dependent <theme-settings>`].
@@ -1158,7 +1158,7 @@ PostScript Parameters
         Additional user-specific formats may be saved as separate line in a
         gmt_custom_media.conf file stored in ~/.gmt.  Each record would have a
         format name followed by width and height of your media in points.  For
-        infinitely long paper rolls (e.g., plotters you can set height = 0).
+        infinitely long paper rolls (e.g., plotters you can set *height* = 0).
 
     **PS_MITER_LIMIT**
         Sets the threshold angle in degrees (integer in range [0,180]) used

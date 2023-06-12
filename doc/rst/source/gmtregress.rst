@@ -264,7 +264,7 @@ x, y, model prediction and the RLS weights, try
   gmt regress rough.txt -Fxymw > points_regressed.txt
 
 To do an orthogonal least-squares regression on the data crazy.txt but first take
-the logarithm of both x and y, then return x, y, model prediction and the normalized
+the logarithm of both *x* and *y*, then return x, y, model prediction and the normalized
 residuals (z-scores), try
 
 ::

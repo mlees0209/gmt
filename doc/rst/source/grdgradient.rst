@@ -83,7 +83,7 @@ Optional Arguments
 
     - **a** - Find the aspect (i.e., the down-slope direction).
     - **c** - Use the conventional Cartesian angles measured counterclockwise
-      from the positive x (east direction) [Default measures directions
+      from the positive *x* (east direction) [Default measures directions
       clockwise from north, as *azim* in |-A|].
     - **o** - Report orientations (0-180) rather than directions (0-360).
     - **n** - Add 90 degrees to all angles (e.g., to give local strikes of the

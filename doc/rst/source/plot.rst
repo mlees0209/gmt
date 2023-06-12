@@ -131,15 +131,15 @@ Optional Arguments
 .. _-E:
 
 **-E**\ [**x**\|\ **y**\|\ **X**\|\ **Y**][**+a**\|\ **A**][**+cl**\|\ **f**][**+n**][**+w**\ *width*\ [/*cap*]][**+p**\ *pen*]
-    Draw error bars. Append **x** and/or **y** to indicate which bars you
-    want to draw [Default is both x and y]. The x and/or y errors must be
-    stored in the columns after the (x,y) pair [or (x,y,z) triplet]. If
+    Draw error bars. Append directives **x** and/or **y** to indicate which bars you
+    want to draw [Default is both **x** and **y**]. The *x* and/or *y* errors must be
+    stored in the columns after the (*x,y*) pair [or (*x,y,z*) triplet]. If
     **+a** is appended then we will draw asymmetrical error bars [Default
     is symmetrical error bars]; these requires
     two rather than one extra data column, with the two signed deviations.
     Use **+A** to read the low and high bounds rather than signed deviations.
     If upper case **X** and/or **Y** are used we will instead draw
-    "box-and-whisker" (or "stem-and-leaf") symbols. The x (or y) coordinate
+    "box-and-whisker" (or "stem-and-leaf") symbols. The *x* (or *y*) coordinate
     is then taken as the median value, and four more columns are expected to
     contain the minimum (0% quantile), the 25% quantile, the 75% quantile,
     and the maximum (100% quantile) values. The 25-75% box may be filled by
