@@ -46,7 +46,9 @@ static struct GMT_KEYWORD_DICTIONARY module_kw[] = { /* Local options for this m
 	          "g,j,J,n,x",         "mapcoords,inside,outside,boxcoords,plotcoords",
 	          "w,a,c,f,j,l,o,u,v", "length,align,loc,fancy,janchor,label,anchoroffset,units,vertical" },
 	{ 0, 'M', "dump",              "", "", "", "" },
-	{ 0, 'N', "borders",           "", "", "", "" },
+	{ 0, 'N', "borders",
+	          "1,2,3,a",           "national,state,marine,all",
+                  "",                  "" },
 	{ 0, 'Q', "markclipend",       "", "", "", "" },
 	{ 0, 'S', "water",             "", "", "", "" },
   	/* -Td and -Tm not doable because they have inconsistent short modifiers? */
