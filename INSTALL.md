@@ -46,7 +46,7 @@ animated GIFs.
 
 
 **NOTE:**
-There are several options for using [GMT on non-UNIX systems](https://docs.generic-mapping-tools.org/latest/cookbook/non-unix-platforms.html)
+There are several options for using [GMT on non-UNIX systems](https://docs.generic-mapping-tools.org/latest/reference/non-unix-platforms.html)
 such as Windows, including [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/),
 MinGW/MSYS2, Cygwin, or DOS batch scripts. The last option will not provide you
 with any UNIX tools so you will be limited to what you can do with DOS batch files.
@@ -192,9 +192,6 @@ You may also install other optional dependencies for more capabilities within GM
 **NOTE:** The Ubuntu/Debian official repositories may provide old GMT versions.
 If you want the latest GMT 6.x release, your best bet then is to
 [build the latest release from source](BUILDING.md).
-Keep in mind that Ubuntu 16.04 LTS for mysterious reasons does not
-include the [supplemental modules](https://docs.generic-mapping-tools.org/latest/modules.html#supplemental-modules),
-but you can obtain them by [building from source](BUILDING.md) or upgrading to Ubuntu 18.04 LTS (or newer).
 
 Install GMT via:
 
