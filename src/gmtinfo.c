@@ -576,7 +576,6 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 	while (!done) {	/* Keep returning records until we reach EOF of last file */
 		In = GMT_Get_Record (API, GMT_READ_DATA | GMT_READ_FILEBREAK, NULL);
 
-		if (gmt_M_rec_is_error (GMT)) Return (GMT_RUNTIME_ERROR);
 		if (gmt_M_rec_is_table_header (GMT)) continue;	/* Skip table headers */
 		if (gmt_M_rec_is_segment_header (GMT) || gmt_M_rec_is_file_break (GMT) || gmt_M_rec_is_eof (GMT)) {	/* Need per segment scrutiny of longitudes */
 			bool alloc_more = (n_items == n_alloc);
@@ -842,12 +841,10 @@ EXTERN_MSC int GMT_gmtinfo (void *V_API, int mode, void *args) {
 		}
 		if (gmt_M_rec_is_file_break (GMT)) continue;
 
-		/* We get here once we have read a data record */
-		if (In->data == NULL) {
-			gmt_quit_bad_record (API, In);
-			Return (API->error);
-		}
+		if (gmt_M_rec_is_error (GMT) || In == NULL || In->data == NULL)	/* Some error like not enough columns */
+			continue;
 
+		/* We get here once we have read a data record */
 		in = In->data;
 
 		if (first_data_record) {	/* First time we read data, we must allocate arrays based on the number of columns */
